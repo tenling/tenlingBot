@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/tenling/tenlingBot/Action"
 
@@ -9,7 +10,7 @@ import (
 )
 
 func main() {
-	bot, err := tgbotapi.NewBotAPI("test")
+	bot, err := tgbotapi.NewBotAPI(os.Getenv("BOT_TOKEN"))
 	if err != nil {
 		log.Panic(err)
 	}
@@ -28,16 +29,8 @@ func main() {
 			continue
 		}
 		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
-		msgText := ""
-		switch update.Message.Text {
-		case "/bank", "/conanBank", "/帳本":
-			msgText = Action.ReplyBank()
-		case "/女朋友", "/Henry's girlfriend":
-			msgText = "nil"
-		default:
-			msgText = update.Message.Text
-		}
 
+		msgText := Action.Action(update.Message.Text, update.Message.From.UserName)
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, msgText)
 		msg.ReplyToMessageID = update.Message.MessageID
 
