@@ -1,6 +1,6 @@
 FROM golang
 MAINTAINER tenling
-WORKDIR /go/src/github.com/tenling/tenling-bot
+WORKDIR /go/src/github.com/tenling/tenlingBot
 ADD . .
 RUN go get github.com/golang/dep/cmd/dep
 RUN dep ensure -v -vendor-only
