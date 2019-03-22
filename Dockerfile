@@ -1,7 +1,7 @@
 FROM golang
 MAINTAINER tenling
-RUN go get github.com/tenling/tenling-bot
 WORKDIR /go/src/github.com/tenling/tenling-bot
+ADD . .
 RUN go get github.com/golang/dep/cmd/dep
 RUN dep ensure -v -vendor-only
 RUN go install -v ./...
